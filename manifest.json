@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Fur Affinity Alerts",
+  "short_name": "FAA",
+  "version": "1.0.0",
+  "description": "Extension for generating Fur Affinity alerts",
+  "permissions": ["notifications", "tabs", "storage", "https://furaffinity.net/"],
+  "browser_action": {
+    "default_popup": "popup/index.html",
+    "default_title": "Fur Affinity Alerts"
+  },
+  "icons": {
+    "128": "./assets/icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
