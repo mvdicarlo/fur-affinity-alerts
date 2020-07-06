@@ -4,7 +4,7 @@
   "short_name": "FAA",
   "version": "1.0.0",
   "description": "Extension for generating Fur Affinity alerts",
-  "permissions": ["notifications", "tabs", "storage", "https://furaffinity.net/"],
+  "permissions": ["notifications", "tabs", "storage", "https://www.furaffinity.net/", "http://www.furaffinity.net/", "http://furaffinity.net/", "https://furaffinity.net/"],
   "browser_action": {
     "default_popup": "popup/index.html",
     "default_title": "Fur Affinity Alerts"
