@@ -5,19 +5,23 @@ export namespace FurAffinityRequest {
     export const OTHER = `${BASE}/msg/others`;
   }
 
-  function get(url: string): string {
-    const req = new XMLHttpRequest();
-    req.open('GET', url, false);
-    req.setRequestHeader('Access-Control-Allow-Origin', '*');
-    req.send();
-    return req.response;
+  function get(url: string): Promise<string> {
+    return new Promise((resolve) => {
+      const req = new XMLHttpRequest();
+      req.open('GET', url);
+      req.setRequestHeader('Access-Control-Allow-Origin', '*');
+      req.addEventListener('load', function () {
+        resolve(this.responseText);
+      });
+      req.send();
+    });
   }
 
-  export function getNotesPage(): string {
+  export function getNotesPage(): Promise<string> {
     return get(Pages.PMS);
   }
 
-  export function getMainPage(): string {
+  export function getMainPage(): Promise<string> {
     return get(Pages.OTHER);
   }
 }

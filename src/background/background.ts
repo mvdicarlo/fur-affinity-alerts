@@ -12,19 +12,26 @@ let tab: chrome.tabs.Tab = null;
 const INTERVAL = 60000 * 2; // TWO MINUTES
 
 const data: StorageFields = {
-  isLoggedIn: false,
-  recordCounts: undefined,
-  watchRecords: [],
-  favoriteRecords: [],
   commentRecords: [],
-  journalRecords: [],
-  noteRecords: [],
-  enableWatchNotifications: true,
-  enableFavoriteNotifications: true,
   enableCommentNotifications: true,
+  enableFavoriteNotifications: true,
   enableJournalNotifications: true,
   enableNoteNotifications: true,
+  enableWatchNotifications: true,
+  favoriteRecords: [],
+  isLoggedIn: false,
+  journalRecords: [],
+  noteRecords: [],
+  recordCounts: {
+    comments: 0,
+    favorites: 0,
+    journals: 0,
+    notes: 0,
+    submissions: 0,
+    watches: 0,
+  },
   silentNotifications: false,
+  watchRecords: [],
 };
 
 async function main() {
@@ -36,7 +43,7 @@ async function main() {
     )
   );
 
-  const page = FurAffinityRequest.getMainPage();
+  const page = await FurAffinityRequest.getMainPage();
   data.isLoggedIn = Parser.isLoggedIn(page);
   if (data.isLoggedIn) {
     const parser = new DOMParser();
@@ -88,7 +95,7 @@ async function main() {
           ...getUniqueRecords(data.noteRecords, records)
         );
       }
-      data.journalRecords = records;
+      data.noteRecords = records;
     }
 
     if (recordCounts.submissions) {
@@ -109,7 +116,6 @@ async function main() {
   }
 
   await Extension.setStorageValues(data);
-  Extension.notifyPopup();
 }
 
 function getUniqueRecords(

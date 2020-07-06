@@ -1,0 +1,9 @@
+.container-height {
+  overflow: auto;
+  max-height: 210px;
+  min-height: 210px;
+}
+
+.header-toolbar {
+  border-bottom: 1px solid lightgray;
+}

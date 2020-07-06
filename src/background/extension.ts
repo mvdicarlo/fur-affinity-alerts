@@ -22,12 +22,6 @@ export namespace Extension {
     });
   }
 
-  export function notifyPopup(): void {
-    chrome.runtime.sendMessage({
-      msg: 'update',
-    });
-  }
-
   export function createNotification(
     url: string,
     type: string,
