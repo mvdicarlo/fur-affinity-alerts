@@ -1,7 +1,7 @@
 {
   "name": "extension-fur-affinity-alerts",
   "version": "1.0.0",
-  "description": "Chrome Extension for generating Fur Affinity alerts",
+  "description": "Extension for generating Fur Affinity alerts",
   "scripts": {
     "clean": "rimraf dist && cpy manifest.json dist && cpy src/assets/* dist/assets",
     "prebuild": "npm run clean",

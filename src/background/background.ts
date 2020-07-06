@@ -3,7 +3,6 @@ import { Parser } from './parsers';
 import { Extension } from './extension';
 import { StorageFields } from './interfaces/storage-fields.interface';
 import { RecordCollection } from './interfaces/record-collection.interface';
-import { emit } from 'process';
 import { RecordPlural } from './enums/record-plural.enum';
 import { MessageFormatter } from './message-formatter';
 
