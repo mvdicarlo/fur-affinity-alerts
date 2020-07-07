@@ -7,6 +7,12 @@ export namespace Parser {
     return html && html.includes('id="my-username"');
   }
 
+  export function getUsername(doc: Document): string {
+    return (<HTMLElement>doc.querySelectorAll('#my-username')[1]).innerText
+      .replace(')', '')
+      .trim();
+  }
+
   export function getRecordCounts(doc: Document): FurAffinityRecordCounts {
     const records: FurAffinityRecordCounts = {
       comments: 0,
@@ -61,6 +67,7 @@ export namespace Parser {
             const anchors = element.querySelectorAll('a');
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#comments`,
               from: (<HTMLElement>anchors[0]).innerText,
               fromUrl: `${FurAffinityRequest.Pages.BASE}${<any>(
@@ -90,6 +97,7 @@ export namespace Parser {
             const anchors = element.querySelectorAll('a');
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#comments`,
               from: (<HTMLElement>anchors[0]).innerText,
               fromUrl: `${FurAffinityRequest.Pages.BASE}${<any>(
@@ -120,6 +128,7 @@ export namespace Parser {
             const anchors = element.querySelectorAll('a');
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#shouts`,
               from: (<HTMLElement>anchors[0]).innerText,
               fromUrl: `${FurAffinityRequest.Pages.BASE}${<any>(
@@ -151,6 +160,7 @@ export namespace Parser {
             const anchors = element.querySelectorAll('a');
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#watches`,
               from: (<HTMLElement>anchors[0]).innerText,
               fromUrl: `${FurAffinityRequest.Pages.BASE}${<any>(
@@ -185,6 +195,7 @@ export namespace Parser {
             const anchors = element.querySelectorAll('a');
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#journals`,
               from: (<HTMLElement>anchors[1]).innerText,
               fromUrl: `${FurAffinityRequest.Pages.BASE}${<any>(
@@ -219,6 +230,7 @@ export namespace Parser {
             if (!element.querySelector('.unread')) return;
 
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/pms/`,
               from: (<HTMLElement>(
                 element.querySelector('.note-list-sender')
@@ -258,6 +270,7 @@ export namespace Parser {
         .forEach((element: HTMLElement) => {
           try {
             records.push({
+              value: element.querySelector('input').value,
               bulkUrl: `${FurAffinityRequest.Pages.BASE}/msg/others/#watches`,
               from: (<HTMLElement>element.querySelector('.info span'))
                 .innerText,

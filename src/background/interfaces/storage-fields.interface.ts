@@ -16,4 +16,5 @@ export interface StorageFields {
   silentNotifications: boolean;
   watchRecords: RecordCollection;
   route?: string;
+  username?: string;
 }

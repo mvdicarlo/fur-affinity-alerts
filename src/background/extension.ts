@@ -3,14 +3,9 @@ import { StorageFields } from './interfaces/storage-fields.interface';
 export namespace Extension {
   const idGenerator = id();
 
-  export function getStorageValue(
-    fields: keyof StorageFields | Array<keyof StorageFields>
-  ): Promise<Record<keyof StorageFields, any>> {
+  export function getStorageValue(): Promise<Record<keyof StorageFields, any>> {
     return new Promise((resolve) => {
-      chrome.storage.local.get(
-        Array.isArray(fields) ? fields : [fields],
-        resolve
-      );
+      chrome.storage.local.get(resolve);
     });
   }
 

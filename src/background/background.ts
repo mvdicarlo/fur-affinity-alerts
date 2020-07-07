@@ -10,6 +10,7 @@ let timer = null;
 let tab: chrome.tabs.Tab = null;
 const INTERVAL = 60000 * 2; // TWO MINUTES
 
+// TODO store username info
 const data: StorageFields = {
   commentRecords: [],
   enableCommentNotifications: true,
@@ -35,12 +36,7 @@ const data: StorageFields = {
 
 async function main() {
   // Update all settings that may have been affected by UI
-  Object.assign(
-    data,
-    await Extension.getStorageValue(
-      <Array<keyof StorageFields>>Object.keys(data)
-    )
-  );
+  Object.assign(data, await Extension.getStorageValue());
 
   const page = await FurAffinityRequest.getMainPage();
   data.isLoggedIn = Parser.isLoggedIn(page);
@@ -52,6 +48,13 @@ async function main() {
       await FurAffinityRequest.getNotesPage(),
       'text/html'
     );
+
+    let skipNotification: boolean = true;
+    const username = Parser.getUsername(mainDoc);
+    if (data.username === username) {
+      skipNotification = false;
+    }
+    data.username = username;
 
     const recordCounts = Parser.getRecordCounts(mainDoc);
     data.recordCounts = recordCounts;
@@ -111,7 +114,11 @@ async function main() {
       data.watchRecords = records;
     }
 
-    emitNotifications(pendingNotifications);
+    if (!skipNotification) {
+      emitNotifications(pendingNotifications);
+    }
+  } else {
+    data.username = undefined;
   }
 
   await Extension.setStorageValues(data);
@@ -123,7 +130,14 @@ function getUniqueRecords(
 ): RecordCollection {
   const uniqueRecords: RecordCollection = [];
   newRecords.forEach((record) => {
-    if (!oldRecords.find((r) => r.from === record.from && r.on === record.on)) {
+    if (
+      !oldRecords.find(
+        (r) =>
+          r.from === record.from &&
+          r.on === record.on &&
+          r.value === record.value
+      )
+    ) {
       uniqueRecords.push(record);
     }
   });

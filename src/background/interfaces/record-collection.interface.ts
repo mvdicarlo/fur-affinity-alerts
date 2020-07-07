@@ -8,6 +8,7 @@ export type DataRecordType =
   | 'journal';
 
 export interface DataRecord {
+  value: string;
   bulkUrl: string;
   url?: string;
   fromUrl?: string;
