@@ -32,7 +32,7 @@ export namespace Extension {
             title: 'View',
           },
         ],
-        iconUrl: './assets/icon.png',
+        iconUrl: './assets/icon48.png',
       }
     );
   }
