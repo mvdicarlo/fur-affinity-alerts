@@ -10,7 +10,6 @@ let timer = null;
 let tab: chrome.tabs.Tab = null;
 const INTERVAL = 60000 * 2; // TWO MINUTES
 
-// TODO store username info
 const data: StorageFields = {
   commentRecords: [],
   enableCommentNotifications: true,
@@ -68,6 +67,8 @@ async function main() {
         );
       }
       data.commentRecords = records;
+    } else {
+      data.commentRecords = [];
     }
 
     if (recordCounts.favorites) {
@@ -78,6 +79,8 @@ async function main() {
         );
       }
       data.favoriteRecords = records;
+    } else {
+      data.favoriteRecords = [];
     }
 
     if (recordCounts.journals) {
@@ -88,6 +91,8 @@ async function main() {
         );
       }
       data.journalRecords = records;
+    } else {
+      data.journalRecords = [];
     }
 
     if (recordCounts.notes) {
@@ -98,6 +103,8 @@ async function main() {
         );
       }
       data.noteRecords = records;
+    } else {
+      data.noteRecords = [];
     }
 
     if (recordCounts.submissions) {
@@ -112,13 +119,29 @@ async function main() {
         );
       }
       data.watchRecords = records;
+    } else {
+      data.watchRecords = [];
     }
 
     if (!skipNotification) {
       emitNotifications(pendingNotifications);
     }
   } else {
+    // Clean data
     data.username = undefined;
+    data.commentRecords = [];
+    data.favoriteRecords = [];
+    data.journalRecords = [];
+    data.noteRecords = [];
+    data.watchRecords = [];
+    data.recordCounts = {
+      comments: 0,
+      favorites: 0,
+      journals: 0,
+      notes: 0,
+      submissions: 0,
+      watches: 0,
+    };
   }
 
   await Extension.setStorageValues(data);

@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "Fur Affinity Alerts",
   "short_name": "FAA",
-  "version": "1.0.1",
-  "description": "Extension for generating Fur Affinity alerts",
+  "version": "1.0.2",
+  "description": "Extension for notifying users about Fur Affinity alerts (notes, journals, favorites, etc.)",
   "permissions": [
     "notifications",
     "tabs",
